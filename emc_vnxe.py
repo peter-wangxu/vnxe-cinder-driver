@@ -938,6 +938,8 @@ class EMCVNXeHelper(object):
         model_update = {'provider_location':
                         self._dumps_provider_location(pl_dict)}
         volume['provider_location'] = model_update['provider_location']
+        # Added for hackathon
+        volume['metadata'] = {'serial_number': self.storage_serial_number}
         return model_update
 
     def create_volume_from_snapshot(self, volume, snapshot):
@@ -1374,6 +1376,8 @@ class EMCVNXeHelper(object):
         data['storage_protocol'] = self.storage_protocol
         data['driver_version'] = VERSION
         data['vendor_name'] = "EMC"
+        # Added for Hackathon
+        data['serial_number'] = self.storage_serial_number
         pools = self.client.get_pools(('name', 'sizeTotal', 'sizeFree',
                                        'id', 'sizeSubscribed'))
         if not self.is_managing_all_pools:
